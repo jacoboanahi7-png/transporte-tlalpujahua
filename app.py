@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 app.secret_key = "TransporteTlalpujahua2026"
 
-usuario = request.form["usuario"]
-password = request.form["password"]
+USUARIO = "conductor"
+PASSWORD = "RutaTlalpujahua2026!"
 
 rutas = [
 
