@@ -1,0 +1,162 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.tarjeta {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px auto;
+    max-width: 500px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.nombre {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info {
+    color: #444;
+    margin: 5px 0;
+}
+.estado {
+    font-weight: bold;
+}
+
+.verde {
+    color: green;
+}
+
+.amarillo {
+    color: orange;
+}
+
+.rojo {
+    color: red;
+}
+
+.gris {
+    color: gray;
+}
+.header {
+    background-color: #2c3e50;
+    color: white;
+    padding: 18px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+.horario {
+    display: inline-block;
+    background-color: #e8eef7;
+    padding: 6px 10px;
+    margin: 4px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+.fecha-hora {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 14px;
+}
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+}
+.tarjeta:hover {
+    transform: translateY(-2px);
+    transition: 0.2s;
+}
+.titulo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.subtitulo {
+    margin-top: 5px;
+    font-size: 13px;
+    opacity: 0.85;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+.error {
+    background-color: #ffe5e5;
+    color: #b30000;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+}
+.botones-estado {
+    margin-top: 10px;
+}
+
+.btn-estado {
+    margin: 4px;
+}
+.menu-superior {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.login-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+.menu-superior {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.volver-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+.volver-link:hover {
+    background-color: rgba(255,255,255,0.15);
+}
