@@ -37,7 +37,23 @@
 
 <p class="info">Estado actual: {{ r.estado }}</p>
 
-<p class="info">Observación: {{ r.observacion }}</p>
+<form method="POST" action="/actualizar_observacion/{{ r.id }}">
+
+    <p class="info"><b>Observación:</b></p>
+
+    <textarea
+        name="observacion"
+        rows="3"
+        style="width:100%; box-sizing:border-box;"
+    >{{ r.observacion }}</textarea>
+
+    <br><br>
+
+    <button type="submit">
+        Guardar observación
+    </button>
+
+</form>
 
 <p class="info">Horarios:</p>
 
