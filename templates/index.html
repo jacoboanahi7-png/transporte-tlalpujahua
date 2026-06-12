@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Transporte Local</title>
+</head>
+<body>
+
+<div class="header">
+
+    <div class="menu-superior">
+        <a href="/login" class="login-link">
+            🔑 Acceso conductor
+        </a>
+    </div>
+
+    <div class="titulo">
+         Transporte Local
+    </div>
+
+    <div class="subtitulo">
+        Información actualizada de rutas y horarios
+    </div>
+
+</div>
+
+<div class="fecha-hora">
+    Fecha: {{ fecha_actual }} | Hora actual: {{ hora_actual }}
+</div>
+
+{% for r in rutas %}
+
+    <div class="tarjeta">
+
+        <div class="nombre">{{ r.nombre }}</div>
+
+        <p class="info">Tarifa: {{ r.tarifa }}</p>
+
+        <p class="info">Horarios:</p>
+        <div>
+            {% for h in r.horarios %}
+                <span class="horario">{{ h }}</span>
+            {% endfor %}
+        </div>
+
+        <p class="info">
+            Horario vigente: {{ r.tipo_horario }}
+        </p>
+
+        
+
+        <p class="info">
+            Estado:
+            {% if r.estado == "Activa" %}
+                <span class="estado verde">{{ r.estado }}</span>
+            {% elif r.estado == "Retrasada" %}
+                <span class="estado amarillo">{{ r.estado }}</span>
+            {% elif r.estado == "Suspendida" %}
+                <span class="estado rojo">{{ r.estado }}</span>
+            {% else %}
+                <span class="estado gris">{{ r.estado }}</span>
+            {% endif %}
+        </p>
+
+        <p class="info">Observación: {{ r.observacion }}</p>
+        <p class="info">Última actualización: {{ r.actualizacion }}</p>
+
+    </div>
+
+{% endfor %}
+
+</body>
+</html>
