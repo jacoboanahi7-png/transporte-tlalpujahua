@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Panel de Conductor</title>
+</head>
+<body>
+
+<div class="header">
+
+    <div class="menu-superior">
+        <a href="/" class="volver-link">
+            🏠 Ver sitio público
+        </a>
+    </div>
+
+    <div class="titulo">
+        ⚙️ Panel de Conductor
+    </div>
+
+    <div class="subtitulo">
+        Actualización de información de rutas
+    </div>
+
+</div>
+
+<div class="fecha-hora">
+    Fecha: {{ fecha_actual }} | Hora actual: {{ hora_actual }}
+</div>
+
+{% for r in rutas %}
+
+<div class="tarjeta">
+
+<div class="nombre">{{ r.nombre }}</div>
+
+<p class="info">Estado actual: {{ r.estado }}</p>
+
+<p class="info">Observación: {{ r.observacion }}</p>
+
+<p class="info">Horarios:</p>
+
+<div>
+    {% for h in r.horarios %}
+        <span class="horario">{{ h }}</span>
+    {% endfor %}
+</div>
+
+<p class="info">Horario vigente: {{ r.tipo_horario }}</p>
+
+<hr>
+
+<p><b>Cambiar estado:</b></p>
+
+<div class="botones-estado">
+
+    <a href="/cambiar_estado/{{ r.id }}/Activa">
+        <button class="btn-estado">Activa</button>
+    </a>
+
+    <a href="/cambiar_estado/{{ r.id }}/Retrasada">
+        <button class="btn-estado">Retrasada</button>
+    </a>
+
+    <a href="/cambiar_estado/{{ r.id }}/Suspendida">
+        <button class="btn-estado">Suspendida</button>
+    </a>
+
+    <a href="/cambiar_estado/{{ r.id }}/Inactiva">
+        <button class="btn-estado">Inactiva</button>
+    </a>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>
