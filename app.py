@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 
@@ -193,7 +194,7 @@ rutas = [
 
 def obtener_datos_generales():
 
-    ahora = datetime.now()
+    ahora = datetime.now(ZoneInfo("America/Mexico_City"))
 
     fecha_actual = ahora.strftime("%d/%m/%Y")
     hora_actual = ahora.strftime("%I:%M %p")
@@ -276,7 +277,7 @@ def cambiar_estado(ruta_id, nuevo_estado):
 
             ruta["estado"] = nuevo_estado
 
-            ruta["actualizacion"] = datetime.now().strftime(
+            ruta["actualizacion"] = datetime.now(ZoneInfo("America/Mexico_City")).strftime(
                 "%d/%m/%Y %I:%M %p"
             )
 
@@ -298,7 +299,7 @@ def actualizar_observacion(ruta_id):
 
             ruta["observacion"] = nueva_observacion
 
-            ruta["actualizacion"] = datetime.now().strftime(
+            ruta["actualizacion"] = datetime.now(ZoneInfo("America/Mexico_City")).strftime(
                 "%d/%m/%Y %I:%M %p"
             )
 
