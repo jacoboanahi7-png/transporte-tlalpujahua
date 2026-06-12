@@ -5,8 +5,8 @@ app = Flask(__name__)
 
 app.secret_key = "TransporteTlalpujahua2026"
 
-USUARIO = "conductor"
-PASSWORD = "RutaTlalpujahua2026!"
+usuario = request.form["usuario"]
+password = request.form["password"]
 
 
 rutas = [
@@ -285,6 +285,27 @@ def cambiar_estado(ruta_id, nuevo_estado):
 
     return redirect(url_for("admin"))
 
+@app.route("/actualizar_observacion/<int:ruta_id>", methods=["POST"])
+def actualizar_observacion(ruta_id):
+
+    if not session.get("logueado"):
+        return redirect(url_for("login"))
+
+    nueva_observacion = request.form.get("observacion", "").strip()
+
+    for ruta in rutas:
+
+        if ruta["id"] == ruta_id:
+
+            ruta["observacion"] = nueva_observacion
+
+            ruta["actualizacion"] = datetime.now().strftime(
+                "%d/%m/%Y %I:%M %p"
+            )
+
+            break
+
+    return redirect(url_for("admin"))
 
 @app.route("/admin")
 def admin():
