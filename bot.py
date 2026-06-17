@@ -1,3 +1,5 @@
+import os
+import json
 from datetime import datetime
 from google.oauth2.service_account import Credentials
 import gspread
@@ -17,8 +19,12 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-credenciales = Credentials.from_service_account_file(
-    "transportelocaltlalpujahua-0c0bdb0c6d76.json",
+credenciales_json = json.loads(
+    os.environ["GOOGLE_CREDENTIALS"]
+)
+
+credenciales = Credentials.from_service_account_info(
+    credenciales_json,
     scopes=SCOPES
 )
 
