@@ -1,97 +1,205 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="es">
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Panel de Conductor</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Panel de Conductores</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
 </head>
+
 <body>
 
-<div class="header">
+<header class="header">
 
-    <div class="menu-superior">
+    <div class="topbar">
+
+        <div>
+            <div class="titulo">
+                Panel de Conductores
+            </div>
+
+            <div class="subtitulo">
+                Administración y actualización de rutas
+            </div>
+        </div>
+
         <a href="/" class="volver-link">
-            🏠 Ver sitio público
+            Ver sitio público
         </a>
+
     </div>
 
-    <div class="titulo">
-        ⚙️ Panel de Conductor prueba
-    </div>
+    <footer class="footer">
 
-    <div class="subtitulo">
-        Actualización de información de rutas
-    </div>
+    <p>
+        Sistema de Información de Transporte Local de Tlalpujahua
+    </p>
 
-</div>
+    <p>
+        Desarrollado por <strong>Anahí Jacobo Romero</strong>
+    </p>
+
+    <p>
+        © 2026 · Todos los derechos reservados
+    </p>
+
+</footer>
+
+</header>
 
 <div class="fecha-hora">
-    Fecha: {{ fecha_actual }} | Hora actual: {{ hora_actual }}
+
+    <div class="dato-info">
+
+        <div class="icono-circulo">
+            <span class="material-symbols-outlined">
+                calendar_month
+            </span>
+        </div>
+
+        <span>{{ fecha_actual }}</span>
+
+    </div>
+
+    <div class="dato-info">
+
+        <div class="icono-circulo">
+            <span class="material-symbols-outlined">
+                schedule
+            </span>
+        </div>
+
+        <span>{{ hora_actual }}</span>
+
+    </div>
+
 </div>
+
+<div class="contenedor-rutas">
 
 {% for r in rutas %}
 
 <div class="tarjeta">
 
-<div class="nombre">{{ r.nombre }}</div>
+    <div class="tarjeta-header">
 
-<p class="info">Estado actual: {{ r.estado }}</p>
+        <div>
+            <div class="nombre">
+                {{ r.nombre }}
+            </div>
+        </div>
 
-<form method="POST" action="/actualizar_observacion/{{ r.id }}">
+        {% if r.estado == "Activa" %}
+            <span class="estado verde">{{ r.estado }}</span>
+        {% elif r.estado == "Retrasada" %}
+            <span class="estado amarillo">{{ r.estado }}</span>
+        {% elif r.estado == "Suspendida" %}
+            <span class="estado rojo">{{ r.estado }}</span>
+        {% else %}
+            <span class="estado gris">{{ r.estado }}</span>
+        {% endif %}
 
-    <p class="info"><b>Observación:</b></p>
+    </div>
 
-    <textarea
-        name="observacion"
-        rows="3"
-        style="width:100%; box-sizing:border-box;"
-    >{{ r.observacion }}</textarea>
+    <div class="separador"></div>
 
-    <br><br>
+    <div class="bloque">
 
-    <button type="submit">
-        Guardar observación
-    </button>
+        <div class="etiqueta">
+            Horario vigente
+        </div>
 
-</form>
+        <div>
+            {{ r.tipo_horario }}
+        </div>
 
-<p class="info">Horarios:</p>
+    </div>
 
-<div>
-    {% for h in r.horarios %}
-        <span class="horario">{{ h }}</span>
-    {% endfor %}
-</div>
+    <div class="bloque">
 
-<p class="info">Horario vigente: {{ r.tipo_horario }}</p>
+        <div class="etiqueta">
+            Horarios
+        </div>
 
-<hr>
+        <div class="horarios-container">
 
-<p><b>Cambiar estado:</b></p>
+            {% for h in r.horarios %}
+                <span class="horario">{{ h }}</span>
+            {% endfor %}
 
-<div class="botones-estado">
+        </div>
 
-    <a href="/cambiar_estado/{{ r.id }}/Activa">
-        <button class="btn-estado">Activa</button>
-    </a>
+    </div>
 
-    <a href="/cambiar_estado/{{ r.id }}/Retrasada">
-        <button class="btn-estado">Retrasada</button>
-    </a>
+    <div class="bloque">
 
-    <a href="/cambiar_estado/{{ r.id }}/Suspendida">
-        <button class="btn-estado">Suspendida</button>
-    </a>
+        <div class="etiqueta">
+            Observación
+        </div>
 
-    <a href="/cambiar_estado/{{ r.id }}/Inactiva">
-        <button class="btn-estado">Inactiva</button>
-    </a>
+        <form method="POST" action="/actualizar_observacion/{{ r.id }}">
 
-</div>
+            <textarea
+                name="observacion"
+                rows="3">{{ r.observacion }}</textarea>
+
+            <button
+                type="submit"
+                class="btn-guardar">
+                Guardar observación
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="separador"></div>
+
+    <div class="bloque">
+
+        <div class="etiqueta">
+            Cambiar estado
+        </div>
+
+        <div class="botones-estado">
+
+            <a href="/cambiar_estado/{{ r.id }}/Activa"
+               class="btn-estado btn-activa">
+                Activa
+            </a>
+
+            <a href="/cambiar_estado/{{ r.id }}/Retrasada"
+               class="btn-estado btn-retrasada">
+                Retrasada
+            </a>
+
+            <a href="/cambiar_estado/{{ r.id }}/Suspendida"
+               class="btn-estado btn-suspendida">
+                Suspendida
+            </a>
+
+            <a href="/cambiar_estado/{{ r.id }}/Inactiva"
+               class="btn-estado btn-inactiva">
+                Inactiva
+            </a>
+
+        </div>
+
+    </div>
 
 </div>
 
 {% endfor %}
+
+</div>
 
 </body>
 </html>
