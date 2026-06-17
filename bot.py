@@ -54,7 +54,7 @@ def guardar_reporte(usuario, ruta, reporte):
         reporte
     ])
 
-TOKEN = "8825240316:AAF6etfKUQXseNuPXnv-QGWXHIyhOm34iOE"
+TOKEN = "ugjhvi"
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
