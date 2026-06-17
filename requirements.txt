@@ -3,4 +3,4 @@ gunicorn==23.0.0
 gspread
 google-auth
 tzdata
-pip freeze > requirements.txt
+
