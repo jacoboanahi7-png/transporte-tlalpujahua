@@ -1,73 +1,278 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Transporte Local</title>
+
+    <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <title>Transporte Local Tlalpujahua</title>
 </head>
 <body>
 
-<div class="header">
+<header class="header">
 
-    <div class="menu-superior">
-        <a href="/login" class="login-link">
-            🔑 Acceso conductor
-        </a>
-    </div>
+    <div class="topbar">
 
-    <div class="titulo">
-         Transporte Local
-    </div>
-
-    <div class="subtitulo">
-        Información actualizada de rutas y horarios
-    </div>
-
-</div>
-
-<div class="fecha-hora">
-    Fecha: {{ fecha_actual }} | Hora actual: {{ hora_actual }}
-</div>
-
-{% for r in rutas %}
-
-    <div class="tarjeta">
-
-        <div class="nombre">{{ r.nombre }}</div>
-
-        <p class="info">Tarifa: {{ r.tarifa }}</p>
-
-        <p class="info">Horarios:</p>
         <div>
-            {% for h in r.horarios %}
-                <span class="horario">{{ h }}</span>
-            {% endfor %}
+            <div class="titulo">
+                Transporte Local
+            </div>
+
+            <div class="subtitulo">
+                Información actualizada de rutas y horarios
+            </div>
         </div>
 
-        <p class="info">
-            Horario vigente: {{ r.tipo_horario }}
+        <a href="/login" class="login-link">
+            Acceso conductor
+        </a>
+
+    </div>
+
+</header>
+
+<div class="fecha-hora">
+
+    <div class="dato-info">
+        <div class="icono-circulo">
+            <span class="material-symbols-outlined">
+                calendar_month
+            </span>
+        </div>
+
+        <span>{{ fecha_actual }}</span>
+    </div>
+
+    
+
+    <div class="dato-info">
+        <div class="icono-circulo">
+            <span class="material-symbols-outlined">
+                schedule
+            </span>
+        </div>
+
+        <span>{{ hora_actual }}</span>
+    </div>
+
+</div>
+
+<div class="mapa-seccion">
+
+    <div class="mapa-titulo">
+        Mapa de rutas
+    </div>
+
+    <div class="mapa-subtitulo">
+        Consulta las rutas y puntos principales del transporte local.
+    </div>
+
+    <iframe
+        src="https://www.google.com/maps/d/embed?mid=1GPjsSqR8mgemY4Vt-M7cnIuuGlpJ4vE&ehbc=2E312F&noprof=1" width="640" height="480"></iframe>
+    </iframe>
+
+</div>
+
+<div class="buscador-seccion">
+
+    <div class="buscador-wrapper">
+
+        <span class="material-symbols-outlined buscador-icono">
+            search
+        </span>
+
+        <input
+            type="text"
+            id="buscador"
+            placeholder="Buscar ruta..."
+        >
+
+    </div>
+
+</div>
+
+{% if proxima_global %}
+
+<div class="tarjeta tarjeta-destacada">
+
+    <div class="tarjeta-header">
+        🚍 Próxima salida disponible
+    </div>
+
+    <div class="tarjeta-body">
+
+        <p><strong>Ruta:</strong> {{ proxima_global.ruta_id }}</p>
+
+        <p><strong>Hora:</strong>
+            {{ proxima_global.hora.strftime('%I:%M %p') }}
         </p>
 
-        
-
-        <p class="info">
-            Estado:
-            {% if r.estado == "Activa" %}
-                <span class="estado verde">{{ r.estado }}</span>
-            {% elif r.estado == "Retrasada" %}
-                <span class="estado amarillo">{{ r.estado }}</span>
-            {% elif r.estado == "Suspendida" %}
-                <span class="estado rojo">{{ r.estado }}</span>
-            {% else %}
-                <span class="estado gris">{{ r.estado }}</span>
+        <p><strong>Faltan:</strong>
+            {% if minutos_global %}
+                {{ minutos_global }} minutos
             {% endif %}
         </p>
 
-        <p class="info">Observación: {{ r.observacion }}</p>
-        <p class="info">Última actualización: {{ r.actualizacion }}</p>
+    </div>
+
+</div>
+
+{% endif %}
+
+<div class="contenedor-rutas">
+
+{% for r in rutas %}
+
+<div class="tarjeta">
+
+    <div class="tarjeta-header">
+
+        <div>
+
+            <div class="nombre">
+                {{ r.nombre }}
+            </div>
+
+            <div class="tarifa">
+                Tarifa: {{ r.tarifa }}
+            </div>
+
+        </div>
+
+        {% if r.estado == "Activa" %}
+            <span class="estado verde">{{ r.estado }}</span>
+        {% elif r.estado == "Retrasada" %}
+            <span class="estado amarillo">{{ r.estado }}</span>
+        {% elif r.estado == "Suspendida" %}
+            <span class="estado rojo">{{ r.estado }}</span>
+        {% else %}
+            <span class="estado gris">{{ r.estado }}</span>
+        {% endif %}
 
     </div>
 
+    <div class="separador"></div>
+
+    <div class="bloque">
+
+        <div class="etiqueta">
+            Horario vigente
+        </div>
+
+        <div>
+            {{ r.tipo_horario }}
+        </div>
+
+    </div>
+
+
+    <div class="bloque">
+
+        <div class="etiqueta">
+            Horarios
+        </div>
+
+        <div class="horarios-container">
+
+            {% for h in r.horarios %}
+                <span class="horario">{{ h }}</span>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <div class="bloque">
+
+    <div class="etiqueta">
+        Próxima salida
+    </div>
+
+    <div class="proxima-salida">
+        {{ r.proxima_salida }}
+    </div>
+
+
+</div>
+
+    <div class="bloque">
+
+        <div class="etiqueta">
+            Observación
+        </div>
+
+        <div>
+            {{ r.observacion }}
+        </div>
+
+    </div>
+
+    <div class="bloque">
+
+        <div class="etiqueta">
+            Última actualización
+        </div>
+
+        <div>
+            {{ r.actualizacion }}
+        </div>
+
+    </div>
+
+</div>
+
 {% endfor %}
+
+</div>
+
+<footer class="footer">
+
+    <p>
+        Sistema de Información de Transporte Local de Tlalpujahua
+    </p>
+
+    <p>
+        Desarrollado por <strong>Anahí Jacobo Romero</strong>
+    </p>
+
+    <p>
+        © 2026 · Todos los derechos reservados
+    </p>
+
+</footer>
+
+<script>
+
+const buscador = document.getElementById("buscador");
+
+buscador.addEventListener("keyup", function(){
+
+    let filtro = buscador.value.toLowerCase();
+
+    let tarjetas = document.querySelectorAll(".tarjeta");
+
+    tarjetas.forEach(function(tarjeta){
+
+        let nombre = tarjeta
+            .querySelector(".nombre")
+            .textContent
+            .toLowerCase();
+
+        if(nombre.includes(filtro)){
+            tarjeta.style.display = "";
+        }else{
+            tarjeta.style.display = "none";
+        }
+
+    });
+
+});
+
+</script>
 
 </body>
 </html>
