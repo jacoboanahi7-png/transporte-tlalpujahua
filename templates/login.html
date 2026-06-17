@@ -1,59 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Acceso Conductores</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
 </head>
 
-
 <body>
-    
 
-<div class="header">
-<div class="menu-superior">
-    <a href="/" class="volver-link">
-        🏠 Volver al sitio público
-    </a>
-</div>
-    Acceso de Conductores
-</div>
+<header class="header">
 
+    <div class="topbar">
 
-<div class="tarjeta">
-    {% if error %}
-    <div class="error">
-        {{ error }}
+         <div>
+            <div class="titulo">
+                Acceso de Conductores
+            </div>
+
+            <div class="subtitulo">
+                Inicia sesión para administrar la información de las rutas
+            </div>
+        </div>
+
+        <a href="/" class="volver-link">
+            Volver al sitio público
+        </a>
+
     </div>
-    {% endif %}
-    <form method="POST">
 
-        <p>Usuario</p>
+</header>
 
-        <input
-            type="text"
-            name="usuario"
-            required
-        >
+<footer class="footer">
 
-        <p>Contraseña</p>
+    <p>
+        Sistema de Información de Transporte Local de Tlalpujahua
+    </p>
 
-        <input
-            type="password"
-            name="password"
-            required
-        >
+    <p>
+        Desarrollado por <strong>Anahí Jacobo Romero</strong>
+    </p>
 
-        <br><br>
+    <p>
+        © 2026 · Todos los derechos reservados
+    </p>
 
-        <button type="submit">
-            Ingresar
-        </button>
+</footer>
 
-    </form>
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="login-icono">
+            <span class="material-symbols-outlined">
+                badge
+            </span>
+        </div>
+
+        <h2>Iniciar sesión</h2>
+
+        <p class="login-texto">
+            Acceso exclusivo para conductores autorizados.
+        </p>
+
+        {% if error %}
+        <div class="error">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+
+            <label>Usuario</label>
+
+            <input
+                type="text"
+                name="usuario"
+                required
+            >
+
+            <label>Contraseña</label>
+
+            <input
+                type="password"
+                name="password"
+                required
+            >
+
+            <button type="submit">
+                Ingresar
+            </button>
+
+        </form>
+
+    </div>
 
 </div>
 
