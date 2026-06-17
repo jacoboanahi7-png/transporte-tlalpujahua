@@ -54,7 +54,7 @@ def guardar_reporte(usuario, ruta, reporte):
         reporte
     ])
 
-TOKEN = "ugjhvi"
+TOKEN = os.environ["TELEGRAM_TOKEN"]
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
